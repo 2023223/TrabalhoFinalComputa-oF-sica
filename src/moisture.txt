@@ -1,0 +1,6 @@
+#include <Arduino.h>
+
+int readMoisture(uint8_t pin)
+{
+    return analogRead(pin);
+}
