@@ -1,9 +1,12 @@
 #include <Arduino.h>
 
-/*macro definition of Speaker pin*/
 #define SPEAKER 3
 
 int BassTab[]={1911,1702,1516,1431,1275,1136,1012};//bass 1~7
+
+int sensorPin = A0;
+int sensorValue = 0;
+
 void pinInit()
 {
     pinMode(SPEAKER,OUTPUT);
@@ -19,16 +22,15 @@ void sound(uint8_t note_index)
         delayMicroseconds(BassTab[note_index]);
     }
 }
-void setup()
-{
-    pinInit();
+
+void setup() {
+    Serial.begin(9600);
 }
-void loop()
-{
-        /*sound bass 1~7*/
-    for(int note_index=0;note_index<7;note_index++)
-    {
-        sound(note_index);
-        delay(500);
-    }
+void loop() {
+    // read the value from the sensor:
+    sensorValue = analogRead(sensorPin);
+    Serial.print("Moisture = " );
+    Serial.println(sensorValue);
+    delay(1000);
 }
+
